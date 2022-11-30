@@ -23,7 +23,7 @@
             <div class="notification is-danger">
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                    {% if field.errors %}{{ field.label }}: {{ field.errors/stript }}
+                    {% if field.errors %}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
                 {% endfor %}
 
             </div>
@@ -59,8 +59,34 @@
                 </div>
             </div>
 
+            <ul class="password-helt-text">
+                <li v-if="password1.length < 8">Your password must contain at least 8 charcters</li>
+                <li v-if="!isNaN(password1)">Your password cannot be just numeric</li>
+            </ul>
+
         </form>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const SignupApp = {
+        data() {
+            return {
+                username: '',
+                password1: '',
+                password2: '',
+                errors: []
+
+            }
+            
+        },
+        delimiters: ['[[', ']]']
+
+    }
+    Vue.createApp(SignupApp).mount('#signup-app')
+</script>
 
 {% endblock %}
