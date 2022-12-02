@@ -16,7 +16,7 @@
 
 <div class="columns" id="signup-app">
     <div class="column is-6 is-offset-3">
-        <form method="post" action="." class="mt-6" v-on:submit="validateForm">
+        <form method="post" action="." class="mt-6" v-on:submit="validateForm" novalidate>
             {% csrf_token %}
 
             {% if form.errors %}
@@ -64,6 +64,11 @@
                 <li v-if="!isNaN(password1)">Your password cannot be just numeric</li>
             </ul>
 
+            <div class="field">
+                <div class="control">
+                    <button class="button is-success">Sign up</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -80,13 +85,52 @@
                 password2: '',
                 errors: []
 
-            }
-            
+            }           
         },
-        delimiters: ['[[', ']]']
+        delimiters: ['[[', ']]'],
+        methods: {
+            validateForm(e) {
+                this.errors= []
 
+                if (!this.validateEmail(this.username)) {
+                    this.errors.push('Your e-mail address is not valid!')
+                }
+
+                if (this.password1 == '') {
+                    this.errors.push ('Your password is missing')
+                }
+
+                if (this.password1 < 8) {
+                    this.errors.push('Your password must be at least 8 characters')
+                }
+
+                if (!isNaN(this.password1)) {
+                    this.errors.push("Your password can't be entirely numeric")
+                }
+
+                if (this.password1 != this.password2) {
+                    this.errors.push('Your passwords does not match!')
+                }
+
+                if (this.errors.length) {
+                    e.preventDefault()
+
+                    return false
+                } else {
+                    return true
+                }
+
+            },
+
+            validateEmail(email) {
+                if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+                    return true
+                }
+                return false              
+            }
+        }
     }
+
     Vue.createApp(SignupApp).mount('#signup-app')
 </script>
-
 {% endblock %}
