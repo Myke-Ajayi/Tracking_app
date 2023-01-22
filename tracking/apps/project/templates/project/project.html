@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
+{% load dashboardextras %}
+
 {% block title %}{{ project.title }} | {% endblock %}
 
 {% block content %}
@@ -18,7 +20,21 @@
 
 
                 <div class="buttons">
-                    <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
+                    {% if team.plan.max_tasks_per_project > project.tasks.count %}
+                        <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
+                    {% else %}
+                        <div class="notification is-warning">
+                            This team has reached the limit of tasks for this project.<br>
+                
+                            {% if team.created_by == request.user %}
+                                <a href="{% url 'team:plans' %}">Upgrade plan</a>
+                            {% else %}
+                                Contact your team owner...
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    
                     <a href="{% url 'project:edit_profile' project.id %}" class="button is-warning">Edit project</a>
                 </div>
             </div>
@@ -45,7 +61,7 @@
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>
 
-                            <p>Registered time: {{ task.registered_time }}</p>
+                            <p>Registered time: {{ task.registered_time|format_minutes }}</p>
 
                             <hr>
 
@@ -66,7 +82,7 @@
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>
 
-                            <p>Registered time: {{ task.registered_time }}</p>
+                            <p>Registered time: {{ task.registered_time|format_minutes }}</p>
 
                             <hr>
 

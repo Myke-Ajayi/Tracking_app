@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
+{% load dashboardextras %}
+
 {% block title %}Projects | {% endblock %}
 
 {% block content %}
@@ -14,8 +16,21 @@
         <div class="columns" id="projects-app">
             <div class="column is-4">
                 <h1 class="title">Projects</h1>
+
+                {% if team.plan.max_projects_per_team > team.projects.count %}
+                    <a @click="showAddProjectModal = !showAddProjectModal" class="button is-success">Add project</a>
+                {% else %}
+                    <div class="notification is-warning">
+                        This team has reached the limit of projects.<br>
+
+                        {% if team.created_by == request.user %}
+                            <a href="{% url 'team:plans' %}">Upgrade plan</a>
+                        {% else %}
+                            Contact your team owner...
+                        {% endif %}
+                    </div>
+                {% endif %}
     
-                <a @click="showAddProjectModal = !showAddProjectModal" class="button is-success">Add project</a>
             </div>
         </div>
 
@@ -24,7 +39,7 @@
                 <div class="column is-3">
                     <div class="notification">
                         <h2 class="is-size-5">{{ project.title }}</h2>
-                        <p class="is size-7">Registered time: {{ project.registered_time }}</p>
+                        <p class="is size-7">Registered time: {{ project.registered_time|format_minutes }}</p>
                         <p class="is size-7">Tasks: {{ project.num_tasks_todo }}</p>
 
                         <hr>
