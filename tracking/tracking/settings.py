@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,24 @@ ALLOWED_HOSTS = []
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'myaccount'
 LOGOUT_REDIRECT_URL = 'frontpage'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_EMAIL_FROM = ' Tracking <mike.endowed@gmail.com>'
 # Application definition
+
+WEBSITE_URL = 'http://127.0.0.1:8000'
+ACCEPTATION_URL = WEBSITE_URL + '/signup/'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MTAbdDJiYsZWv5CiL3f6qzY6yt7KsrOAQcZz7cb400ijUvalo5O5FDGy2btHtpyTuBSkwROqCntdGrMgki0N4SV007XvdmoL6'
+STRIPE_SECRET_KEY = 'sk_test_51MTAbdDJiYsZWv5Cum5bEsP7qRk0GCscADosfRzYOClNnVs2rQ2wUyHmoQtPgZuTKRA7rqH3rSQMLoJVKk1M2iap00eN6IYXcu'
+
+STRIPE_BASIC_PRICE_ID = 'price_1MTAjzDJiYsZWv5COvO6Dn6R'
+STRIPE_PRO_PRICE_ID = 'price_1MTAkODJiYsZWv5C6Q8lJGz7'
+STRIPE_WEBHOOK_KEY = 'acct_1MTAbdDJiYsZWv5C'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.core',
+    'apps.dashboard',
     'apps.project',
     'apps.team',
     'apps.userprofile',
@@ -69,7 +88,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.team.context_processors.active_team'
+                'apps.team.context_processors.active_team',
+                'apps.project.context_processors.active_entry'
             ],
         },
     },
@@ -125,3 +145,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
