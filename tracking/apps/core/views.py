@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 
 
 # 
+from apps.team.models import Invitation
 from apps.userprofile.models import Userprofile
 
 # Create your views here.
@@ -36,7 +37,12 @@ def signup(request):
 
             login(request, user)
 
-            return redirect('frontpage')
+            invitations = Invitation.objects.filter(email=user.email, status=Invitation.INVITED)
+
+            if invitations:
+                return redirect('accept_invitation')
+            else:
+                return redirect('dashboard')
 
     else:
         form = UserCreationForm()
