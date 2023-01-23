@@ -14,6 +14,9 @@
         <div class="column is-6">
             <div class="media mb-4">
                 <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="{{ user.userprofile.get_avatar }}">
+                    </figure>
 
                 </div>
 
@@ -38,6 +41,20 @@
     </div>
 
     <hr>
+
+    {% if invitations %}
+        <div class="notification is-info">
+            <h2 class="subtitle">You have pending invitations</h2>
+
+            {% for invitation in invitations %}
+                <a href="{ url 'accept_invitation' %}">{{ invitation.team.title }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="columns">
+
+    </div>
 
     <div class="columns">
         <div class="column is-12">
