@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i3%yff2jv+nx=p+8r7_5+8rhq^(h)$91l64b+b71bttr3241f9'
+SECRET_KEY = 'django-insecure-**********'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,21 +34,21 @@ LOGOUT_REDIRECT_URL = 'frontpage'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '****************'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_EMAIL_FROM = ' Tracking <mike.endowed@gmail.com>'
+DEFAULT_EMAIL_FROM = ' Tracking <****.*****@gmail.com>'
 # Application definition
 
 WEBSITE_URL = 'http://127.0.0.1:8000'
 ACCEPTATION_URL = WEBSITE_URL + '/signup/'
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51MTAbdDJiYsZWv5CiL3f6qzY6yt7KsrOAQcZz7cb400ijUvalo5O5FDGy2btHtpyTuBSkwROqCntdGrMgki0N4SV007XvdmoL6'
-STRIPE_SECRET_KEY = 'sk_test_51MTAbdDJiYsZWv5Cum5bEsP7qRk0GCscADosfRzYOClNnVs2rQ2wUyHmoQtPgZuTKRA7rqH3rSQMLoJVKk1M2iap00eN6IYXcu'
+STRIPE_PUBLISHABLE_KEY = '**************************'
+STRIPE_SECRET_KEY = '***********************'
 
-STRIPE_BASIC_PRICE_ID = 'price_1MTAjzDJiYsZWv5COvO6Dn6R'
-STRIPE_PRO_PRICE_ID = 'price_1MTAkODJiYsZWv5C6Q8lJGz7'
-STRIPE_WEBHOOK_KEY = 'acct_1MTAbdDJiYsZWv5C'
+STRIPE_BASIC_PRICE_ID = '**************************'
+STRIPE_PRO_PRICE_ID = '**************************'
+STRIPE_WEBHOOK_KEY = '********************************'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
